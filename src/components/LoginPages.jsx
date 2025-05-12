@@ -3,13 +3,22 @@ import { useNavigate, Link } from 'react-router-dom'; // Importa useNavigate
 import avatar from "../assets/avatar.jpg";
 import { FaEyeSlash } from "react-icons/fa";
 import './LoginPages.css'; 
+import axios from 'axios'
 
 function LoginPages() {
   const navigate = useNavigate(); // Hook para navegar entre páginas
 
   const handleLogin = () => {
     navigate('/main'); // Aquí pones la ruta a donde quieres ir
-    navigate('/register'); //
+  };
+  const handleRegister = () => {
+    navigate('/register'); // preguntar al mayorga si aqui va solo el nombre o la ruta completa :((())):
+  };
+  const handleForgotPassword = () => {
+    navigate('/password'); // Aquí pones la ruta a donde quieres ir
+  };
+  const handleTest = () => {
+    navigate('/test'); // Aquí pones la ruta a donde quieres ir
   };
 
   return (
@@ -24,7 +33,7 @@ function LoginPages() {
           <h1 className="text-4xl font-bold text-[#0000cc] mb-6 text-center">Iniciar sesión</h1> 
           <p className="text-lg mb-4 text-center">
             ¿Aún no tienes cuenta? 
-            <Link  onClick={handleLogin} href=".src/components/RegisterPages" className="text-lg text-[#0000cc] block text-center mb-6">Registrarse</Link>
+            <Link  onClick={handleRegister} href=".src/components/RegisterPages" className="text-lg text-[#0000cc] block text-center mb-6">Registrarse</Link>
           </p> 
 
           <div className="mb-6">
@@ -42,12 +51,12 @@ function LoginPages() {
              </div>
             </div>
 
-          <a href="#" className="text-lg text-[#0000cc] block text-center mb-6">¿Has olvidado tu contraseña?</a>
+          <Link onClick={handleForgotPassword} href=".src/components/ForgotPassword" className="text-lg text-[#0000cc] block text-center mb-6">¿Has olvidado tu contraseña?</Link>
 
           {/* Botón con link */}
           <Link 
-            onClick={handleLogin} // <- Aquí ejecutamos la función
-            className="w-full bg-[#4caf50] text-white font-bold py-2 mt-6 rounded-lg text-2xl"
+            onClick={handleTest} // <- Aquí ejecutamos la función
+            href=".src/components/AllergyForm" className="w-full bg-[#4caf50] text-white font-bold py-2 mt-6 rounded-lg text-center text-2xl"
           >
             Ingresar
           </Link>

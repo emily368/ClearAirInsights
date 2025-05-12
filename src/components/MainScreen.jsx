@@ -3,6 +3,7 @@ import './MainScreen.css';
 import { FaSearch, FaUser, FaEdit } from 'react-icons/fa'; 
 import tam from "../assets/tam.jpg";
 import avatar from "../assets/avatar.jpg";
+import { useNavigate, Link } from 'react-router-dom'; //añadi esta funcion
 
 function MainScreen() {
   // Estado para manejar la ciudad ingresada en el buscador
@@ -17,6 +18,11 @@ function MainScreen() {
   // Función para abrir/cerrar el panel
   const togglePanel = () => {
     setIsPanelOpen(!isPanelOpen);
+  };
+  
+  const navigate = useNavigate();
+  const handleMap = () => {
+    navigate('/map'); // Aquí pones la ruta a donde quieres ir
   };
 
   return (
@@ -128,7 +134,7 @@ function MainScreen() {
 
         {/* Mapa y botones alineados a la derecha */}
         <div className="flex justify-end mb-8 ml-4 mt-[-2cm]"> {/* Ajuste de mt-[-2cm] para mover los botones hacia arriba */}
-  <button className="bg-blue-500 text-white py-4 px-10 rounded-md hover:bg-blue-600 mr-4 mb-4 md:mb-0">Ver Mapa</button>
+  <Link onClick={handleMap} href=".src/components/Map" className="bg-blue-500 text-white py-4 px-10 rounded-md hover:bg-blue-600 mr-4 mb-4 md:mb-0">Ver Mapa</Link>
   <button className="bg-blue-500 text-white py-4 px-10 rounded-md hover:bg-blue-600">Resultados</button>
 </div>
 

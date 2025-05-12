@@ -7,14 +7,20 @@ import RegisterPages from './components/RegisterPages.jsx';
 import ForgotPassword from './components/ForgotPassword.jsx';
 import MainScreen from './components/MainScreen.jsx';
 import NotFoundPage from './components/NotFoundPage.jsx';
+import Map from './components/Map.jsx';
+import AllergyForm from './components/AllergyForm.jsx';
+import Details from './components/Details.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {path: "/",element:<App/>},
-  {path: "Login",element:<LoginPages/>},
-  {path: "Register",element:<RegisterPages/>},
-  {path: "ForgotPassword",element:<ForgotPassword/>},
-  {path: "MainScreen",element:<MainScreen/>},
+  {path: "/login",element:<LoginPages/>},
+  {path: "/main",element:<MainScreen/>},
+  {path: "/register",element:<RegisterPages/>},
+  {path: "/password",element:<ForgotPassword/>},
+  {path: "/map",element:<Map/>},
+  {path: "/test",element:<AllergyForm/>},
+  {path: "/details",element:<Details/>},
   {path: "*",element:<NotFoundPage/>},
 ]);
 
