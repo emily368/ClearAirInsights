@@ -3,12 +3,17 @@ import { FaMapMarkerAlt, FaUser, FaEdit } from 'react-icons/fa';
 import avatar from '../assets/avatar.jpg'; // Asegúrate de tener un avatar en tu carpeta de assets
 import './Map.css';
 import { IoArrowBackCircleSharp } from "react-icons/io5";
+import { useNavigate, Link } from 'react-router-dom'; 
 
 function Map() {
     const [isDetailsVisible, setIsDetailsVisible] = useState(false);
     const [isPanelOpen, setIsPanelOpen] = useState(false); // Para manejar el panel del usuario
     const [location, setLocation] = useState(''); // Estado para la ubicación seleccionada
+    const navigate = useNavigate(); // Hook para navegar entre páginas
 
+    const handleDetails = () => {
+        navigate('/details'); // Aquí pones la ruta a donde quieres ir
+      };
     // Función para alternar la visibilidad de los detalles
     const toggleDetails = () => {
         setIsDetailsVisible(!isDetailsVisible);
@@ -122,12 +127,12 @@ function Map() {
                     )}
 
                     {/* Botón para ver los detalles */}
-                    <button
-                        onClick={toggleDetails}
+                    <Link
+                        onClick={handleDetails} href=".src/components/Details"
                         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 mb-4 mt-4"
                     >
                         Ver detalles
-                    </button>
+                    </Link>
 
                     {/* Detalles opcionales */}
                     {isDetailsVisible && (

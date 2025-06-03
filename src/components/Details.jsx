@@ -8,7 +8,7 @@ function Details() {
   const [location, setLocation] = useState(null); // Estado para almacenar la ubicación
   const [error, setError] = useState(null); // Estado para manejar errores de ubicación
   const [cityCoordinates, setCityCoordinates] = useState(null); // Coordenadas de la ciudad seleccionada
-
+  
   // Clave de la API de OpenWeatherMap (reemplázala con tu propia clave)
   const apiKey = 'TU_CLAVE_DE_API_AQUI';
 

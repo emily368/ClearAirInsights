@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import './AllergyFrom.css'; 
+import './AllergyFrom.css';
+import { useNavigate, Link } from 'react-router-dom'; 
 
 function AllergyForm() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isAllergic, setIsAllergic] = useState(''); // Almacena la respuesta sobre alergia
   const [allergyDetails, setAllergyDetails] = useState(''); // Almacena los detalles de la alergia
   const [surveyCompleted, setSurveyCompleted] = useState(false); // Controla si la encuesta se completó
+  const navigate = useNavigate(); // Hook para navegar entre páginas
 
+  const handleLogin = () => {
+    navigate('/main'); // Aquí pones la ruta a donde quieres ir
+  };
   // Muestra la alerta y el formulario
   const showAlert = () => {
     alert("¡Atención! Por favor, rellena el formulario a continuación sobre tus alergias.");
@@ -102,12 +107,14 @@ function AllergyForm() {
                 )}
 
                 {/* Botón de continuar */}
-                <button
+                <Link
+                onClick={handleLogin} // <- Aquí ejecutamos la función
+                  href=".src/components/MainScreen"
                   type="submit"
                   className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
                 >
                   Continuar
-                </button>
+                </Link>
               </form>
             )}
           </>

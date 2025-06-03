@@ -1,7 +1,13 @@
 import React from 'react'  
-import './RegisterPages.css'; 
+import './RegisterPages.css';
+import { useNavigate, Link } from 'react-router-dom';  
 
 function RegisterPages() {
+  const navigate = useNavigate(); // Hook para navegar entre páginas
+  
+    const handleMain = () => {
+      navigate('/login'); // Aquí pones la ruta a donde quieres ir
+    };
   return (
     <div className="h-screen flex items-center justify-center bg-[#bce3f8]">
       <div className="flex w-screen h-[90vh]">
@@ -119,7 +125,8 @@ function RegisterPages() {
 
             {/* Botón de "Crear cuenta" */}
             <div className="flex justify-center mt-4">
-              <button className="w-1/2 bg-[#4caf50] text-white font-bold py-1 px-4 rounded-lg text-lg">Crear cuenta</button>
+              <Link onClick={handleMain} // <- Aquí ejecutamos la función
+                  href=".src/components/LoginPages" className="w-1/2 bg-[#4caf50] text-white font-bold py-1 px-4 rounded-lg text-lg">Crear cuenta</Link>
             </div>
           </form>
         </div>

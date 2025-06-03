@@ -12,7 +12,7 @@ import File from './components/File'
   
     return (
       <div className='flex'>
-        <Map/>
+        <LoginPages/>
       
       </div>
     )
