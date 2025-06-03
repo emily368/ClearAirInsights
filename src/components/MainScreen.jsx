@@ -72,8 +72,7 @@ function MainScreen() {
     <div className="bg-[#bce3f8] min-h-screen flex flex-col items-center justify-start">
       {/* Header */}
       <div className="fixed top-0 left-0 w-full bg-[#4a8a45] p-4 flex justify-between items-center z-20">
-        <img src={avatar} alt="avatar" className="w-10 h-10 " />
-
+        <img src={avatar} alt="avatar" className="w-10 h-10" />
         <div className="relative" ref={menuRef}>
           <FaUser
             className="text-white text-2xl cursor-pointer"
@@ -84,24 +83,6 @@ function MainScreen() {
               <div className="px-4 py-2 border-b border-gray-300 font-semibold">
                 {userName}
               </div>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  navigate('/account');
-                }}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-              >
-                Ver cuenta
-              </button>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  alert('Acerca de: ClearAir Insights v1.0');
-                }}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-              >
-                Acerca de
-              </button>
               <button
                 onClick={() => {
                   setMenuOpen(false);
@@ -119,13 +100,14 @@ function MainScreen() {
 
       {/* Contenido principal */}
       <div className="pt-32 px-4 w-full max-w-screen-xl">
-        <div className="flex flex-col md:flex-row items-start justify-center gap-8">
+        <div className="flex flex-col md:flex-row items-start justify-center gap-8 flex-wrap">
+          {/* Columna izquierda */}
           <div className="w-full md:w-1/2 mt-4 md:mt-10">
             <h1 className="text-3xl font-bold text-center md:text-left mb-4">
               ¡Bienvenido a ClearAir Insights!
             </h1>
 
-            <div className="bg-[#f0f4f7] p-6 rounded-8 shadow-md mb-6 text-center">
+            <div className="bg-[#f0f4f7] p-6 rounded-md shadow-md mb-6 text-center">
               <p className="text-lg text-gray-700 mb-2">
                 Conoce la calidad del aire a tu alrededor y protege tu salud con información actualizada al instante.
               </p>
@@ -134,14 +116,21 @@ function MainScreen() {
               </p>
             </div>
 
-            <Link to="/map">
-              <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-md mb-6 hover:bg-blue-700 transition">
-                Ver Mapa
-              </button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+              <Link to="/map" className="w-full sm:w-auto">
+                <button className="w-full bg-blue-600 text-white py-2 px-4 text-sm rounded-md hover:bg-blue-700 transition">
+                  Ver Mapa
+                </button>
+              </Link>
+              <Link to="/file" className="w-full sm:w-auto">
+                <button className="w-full bg-blue-600 text-white py-2 px-4 text-sm rounded-md hover:bg-blue-700 transition">
+                  Ver datos guardados
+                </button>
+              </Link>
+            </div>
 
             <div className="bg-[#e8e4e4] p-4 rounded-md shadow-md mb-6">
-              <div className="flex justify-between items-center mb-3">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 gap-2">
                 <h3 className="text-lg font-semibold">
                   {showingFavorites ? "Favoritos" : "Lugares Recientes"}
                 </h3>
@@ -198,12 +187,12 @@ function MainScreen() {
             </div>
           </div>
 
+          {/* Columna derecha - Imagen */}
           <div className="w-full md:w-1/2 mt-6 md:mt-10 flex justify-center">
             <img
               src={Tecky}
               alt="Tecky"
-              className="rounded-lg shadow-lg"
-              style={{ maxWidth: '450px' }}
+              className="rounded-lg shadow-lg max-w-full md:max-w-md"
             />
           </div>
         </div>

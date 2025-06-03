@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function File() {
   const location = useLocation();
+  const navigate = useNavigate(); // ← Añadido
   const [search, setSearch] = useState('');
   const [datosHistorial, setDatosHistorial] = useState([]);
   const [datosFiltrados, setDatosFiltrados] = useState([]);
@@ -133,6 +134,14 @@ function File() {
           </div>
         ))}
       </div>
+
+      {/* Botón regresar al inicio */}
+      <button
+        onClick={() => navigate('/main')}
+        style={{ ...styles.button, marginTop: '20px', backgroundColor: '#0000cc' }}
+      >
+        Regresar al inicio
+      </button>
     </div>
   );
 }
@@ -145,7 +154,7 @@ const styles = {
   title: {
     fontSize: '28px',
     fontWeight: 'bold',
-    color: '#0000cc',
+    color: 'black',
     marginBottom: '20px',
   },
   confirmacion: {

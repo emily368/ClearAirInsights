@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Details.css';
 
 import burrofeliz from '../assets/BurroFeliz.jpeg';
 import burroneutral from '../assets/BurroNeutral.jpeg';
@@ -42,7 +41,6 @@ function Details() {
         { location: { latitude: lat, longitude: lng } }
       );
 
-      // Validar estructura y existencia
       const indexes = response.data?.indexes;
       if (indexes && indexes.length > 0) {
         setAirQuality(indexes[0].aqi);
@@ -97,7 +95,7 @@ function Details() {
   };
 
   const getBurroImage = () => {
-    if (airQuality === null || isNaN(airQuality)) return burroneutral; // fallback neutral
+    if (airQuality === null || isNaN(airQuality)) return burroneutral;
     if (airQuality <= 50) return burrofeliz;
     if (airQuality <= 100) return burroneutral;
     return burrotriste;
@@ -176,12 +174,12 @@ function Details() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-blue-500 p-4">
       {loading ? (
-        <p className="text-2xl font-semibold text-white">Cargando datos de calidad del aire...</p>
+        <p className="text-2xl font-semibold text-white text-center">Cargando datos de calidad del aire...</p>
       ) : (
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h1 className="text-3xl font-bold mb-4">Calidad del Aire</h1>
+        <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg max-w-lg w-full text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-6">Calidad del Aire</h1>
 
-          <div className="mb-4 text-left text-gray-700">
+          <div className="mb-6 text-left text-gray-700 space-y-1 text-sm sm:text-base">
             <p><strong>Ubicación:</strong> {placeName || 'Cargando...'}</p>
             <p><strong>Latitud:</strong> {lat.toFixed(4)}</p>
             <p><strong>Longitud:</strong> {lng.toFixed(4)}</p>
@@ -189,12 +187,16 @@ function Details() {
 
           {airQuality !== null ? (
             <>
-              <p className="text-xl mb-2">Nivel AQI: {airQuality}</p>
-              <p className="text-xl font-semibold mb-4">{getAirQualityText()}</p>
-              <img src={getBurroImage()} alt="Burro" className="mx-auto w-40 mb-4" />
+              <p className="text-lg sm:text-xl mb-2 font-medium">Nivel AQI: {airQuality}</p>
+              <p className="text-lg sm:text-xl font-semibold mb-4">{getAirQualityText()}</p>
+              <img
+                src={getBurroImage()}
+                alt="Burro"
+                className="mx-auto w-32 sm:w-40 mb-6 max-w-full h-auto"
+              />
 
               {dominantPollutant ? (
-                <div className="text-left">
+                <div className="text-left mb-6">
                   <h2 className="text-lg font-semibold mb-2">Principal contaminante:</h2>
                   {(() => {
                     const info = getContaminanteInfo(dominantPollutant);
@@ -202,11 +204,11 @@ function Details() {
                       <div>
                         <div className="flex items-center mb-1">
                           {info.icono}
-                          <span className={`font-bold ${info.color}`}>
+                          <span className={`font-bold ${info.color} text-base sm:text-lg`}>
                             {info.nombre}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 italic mt-1">
+                        <p className="text-sm sm:text-base text-gray-600 italic mt-1">
                           {info.descripcion}
                         </p>
                       </div>
@@ -214,38 +216,46 @@ function Details() {
                   })()}
                 </div>
               ) : (
-                <p className="text-sm text-gray-500 italic mt-2">No se encontró contaminante dominante.</p>
+                <p className="text-sm sm:text-base text-gray-500 italic mb-6">
+                  No se encontró contaminante dominante.
+                </p>
               )}
 
-              <div className="mt-6 flex justify-center gap-4 flex-wrap">
+              <div className="mt-4 flex flex-wrap justify-center gap-3">
                 <button
                   onClick={() => navigate('/map')}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg min-w-[140px]"
                 >
                   Volver al Mapa
                 </button>
                 <button
                   onClick={() => navigate('/main')}
-                  className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg min-w-[140px]"
                 >
                   Volver al Inicio
                 </button>
                 <button
                   onClick={handleGuardarDatos}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg min-w-[140px]"
                 >
                   Guardar datos
                 </button>
                 <button
                   onClick={toggleFavorito}
-                  className={`px-4 py-2 font-semibold rounded-lg ${isFavorito ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-gray-300 hover:bg-gray-400'}`}
+                  className={`px-4 py-2 font-semibold rounded-lg min-w-[140px] ${
+                    isFavorito
+                      ? 'bg-red-600 hover:bg-red-700 text-white'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
                 >
                   {isFavorito ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
                 </button>
               </div>
             </>
           ) : (
-            <p className="text-red-600 font-semibold">No se pudo obtener la calidad del aire para esta ubicación.</p>
+            <p className="text-red-600 font-semibold text-base sm:text-lg">
+              No se pudo obtener la calidad del aire para esta ubicación.
+            </p>
           )}
         </div>
       )}

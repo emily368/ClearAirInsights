@@ -12,7 +12,7 @@ function Map() {
   const [location, setLocation] = useState(null);
   const [placeName, setPlaceName] = useState("");
 
-  const apiKey = 'AIzaSyAlFxQE_hnmM5xhCj8nJTTuKsQgxvdD2Ic'; // Tu API key
+  const apiKey = 'AIzaSyAlFxQE_hnmM5xhCj8nJTTuKsQgxvdD2Ic';
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: apiKey,
@@ -74,36 +74,32 @@ function Map() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // Usar coords exactos
           setLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           });
         },
         (error) => {
-          alert("No se pudo obtener la ubicación. Intenta permitir el acceso o intenta más tarde.");
+          alert("No se pudo obtener la ubicación.");
           console.error("Error geolocalización:", error);
         },
         {
-          enableHighAccuracy: true,  // Más precisa
-          timeout: 10000,           // Tiempo máximo 10 segundos
-          maximumAge: 0             // No usar caché
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         }
       );
     } else {
-      alert("La geolocalización no está soportada por este navegador.");
+      alert("La geolocalización no está soportada.");
     }
   };
 
   const getRandomLocation = () => {
-    // Centro de México, pero solo para ejemplo. Aquí puedes quitar o cambiar.
     const center = { lat: 23.6345, lng: -102.5528 };
     const radius = 500000;
-
     const y0 = center.lat;
     const x0 = center.lng;
     const rd = radius / 111300;
-
     const u = Math.random();
     const v = Math.random();
     const w = rd * Math.sqrt(u);
@@ -119,30 +115,31 @@ function Map() {
 
   const containerStyle = {
     width: '100%',
-    height: '550px',
+    height: '400px',
     borderRadius: '1rem',
     boxShadow: '0 0 10px rgba(0,0,0,0.2)'
   };
 
-  // Solo centro si no hay location
-  const centerDefault = { lat: 20.0, lng: -100.0 }; // Un centro neutral en México
+  const centerDefault = { lat: 20.0, lng: -100.0 };
 
   if (loadError) return <div>Error cargando mapa</div>;
 
   return (
-    <div className="bg-[#bce3f8] h-screen w-screen flex flex-col items-center">
+    <div className="bg-[#bce3f8] min-h-screen w-screen flex flex-col">
+      {/* Barra superior */}
       <div className="w-full bg-[#4a8a45] p-4 flex justify-between items-center rounded-b-xl shadow-lg">
         <div className="flex items-center">
           <img src={avatar} alt="avatar" className="w-10 h-10 rounded-full mr-4" />
         </div>
-
         <Link to="/" className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
-          ← Volver al inicio
+          Volver al inicio
         </Link>
       </div>
 
-      <div className="flex w-full max-w-screen-lg mt-6">
-        <div className="w-2/3 p-4">
+      {/* Contenido principal */}
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-screen-xl mx-auto px-4 py-6">
+        {/* Mapa */}
+        <div className="w-full md:w-2/3">
           {isLoaded ? (
             <GoogleMap
               mapContainerStyle={containerStyle}
@@ -162,17 +159,17 @@ function Map() {
           )}
         </div>
 
-        <div className="w-80 h-80 p-2 bg-[#e8e4e4] rounded-xl shadow-lg ml-auto mt-24">
-          <h1 className="text-2xl font-semibold text-gray-800 mb-4">Ubicación:</h1>
+        {/* Panel de acciones */}
+        <div className="w-full md:w-1/3 bg-[#e8e4e4] rounded-xl shadow-lg p-4">
+          <h1 className="text-xl font-semibold text-gray-800 mb-4">Ubicación:</h1>
 
-          <div className="flex flex-col items-start mb-4 gap-2">
+          <div className="flex flex-col gap-2 mb-4">
             <button
               onClick={getLocation}
               className="text-sm bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
               📍 Usar ubicación actual
             </button>
-
             <button
               onClick={getRandomLocation}
               className="text-sm bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
@@ -189,7 +186,7 @@ function Map() {
               </p>
               <Link
                 to={`/details?lat=${location.lat}&lng=${location.lng}`}
-                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 mb-4 mt-4 inline-block text-center"
+                className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 block mt-4 text-center"
               >
                 Ver detalles
               </Link>
