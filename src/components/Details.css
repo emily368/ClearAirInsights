@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import "tailwindcss";
 /* Centra todo en pantalla */
 body, html {
@@ -67,3 +68,6 @@ body, html {
   font-size: 1.2rem;
   font-weight: bold;
 }
+=======
+@import "tailwindcss";
+>>>>>>> 5dfc72143972e5a41d2bcdcc99e79db7995d15d6
