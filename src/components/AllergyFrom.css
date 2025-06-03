@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+
+.chalk-text {
+  font-family: 'Gloria Hallelujah', cursive;
+  color: #fffacd; /* blanco amarillento */
+  text-shadow: 1px 1px #444; /* sombra tenue como tiza */
+
+.eraser-button {
+  background: #f2c94c; /* color de borrador tipo amarillo pastel */
+  color: #000;
+  border: 2px solid #a17c28; /* borde tipo goma */
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-family: 'Gloria Hallelujah', cursive;
+  box-shadow: 2px 2px 0px #a17c28;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+
+.eraser-button:hover {
+  transform: scale(1.05);
+  box-shadow: 4px 4px 0px #a17c28;
+  cursor: pointer;
+}
+}
+}
+}
