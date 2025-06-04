@@ -140,7 +140,7 @@ function File() {
         onClick={() => navigate('/main')}
         style={{ ...styles.button, marginTop: '20px', backgroundColor: '#4a8a45' }}
       >
-        ⬅ Regresar al inicio
+        Regresar al inicio
       </button>
     </div>
   );
