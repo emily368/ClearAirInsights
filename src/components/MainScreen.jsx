@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaUser, FaTrash, FaStar, FaRegStar } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Tecky from "../assets/Tecky.jpeg";
 import avatar from "../assets/avatar.png";
 import { haversineDistance } from '../utils';
@@ -14,6 +14,13 @@ function MainScreen() {
   const [userName, setUserName] = useState('');
   const menuRef = useRef(null);
   const navigate = useNavigate();
+  const locationRouter = useLocation();
+
+  const loadPlaces = () => {
+    const storedPlaces = JSON.parse(localStorage.getItem("recentPlaces")) || [];
+    const sortedPlaces = storedPlaces.sort((a, b) => b.timestamp - a.timestamp);
+    setRecentPlaces(sortedPlaces);
+  };
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -35,20 +42,14 @@ function MainScreen() {
       );
     }
 
-    const storedPlaces = JSON.parse(localStorage.getItem("recentPlaces")) || [];
-    const sortedPlaces = storedPlaces.sort((a, b) => b.timestamp - a.timestamp);
     const storedFavorites = JSON.parse(localStorage.getItem("favoritePlaces")) || [];
-    setRecentPlaces(sortedPlaces);
     setFavorites(storedFavorites);
-
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [navigate]);
+
+  // Cada vez que cambie la ruta, recarga lugares recientes
+  useEffect(() => {
+    loadPlaces();
+  }, [locationRouter.key]);
 
   const handleClearHistory = () => {
     localStorage.removeItem("recentPlaces");
@@ -169,9 +170,20 @@ function MainScreen() {
                     );
 
                     return (
-                      <div key={index} className="border-b border-gray-300 pb-2 last:border-b-0">
-                        <p className="font-semibold">{place.name}</p>
-                        <p className="text-sm font-semibold">{distance} km</p>
+                      <div
+                        key={index}
+                        className="border-b border-gray-300 pb-2 last:border-b-0 flex justify-between items-center"
+                      >
+                        <div>
+                          <p className="font-semibold">{place.name || "Lugar no disponible"}</p>
+                          <p className="text-sm font-semibold">{distance} km</p>
+                          <Link
+                            to={`/details?lat=${place.latitude}&lng=${place.longitude}`}
+                            className="text-blue-600 hover:underline text-sm"
+                          >
+                            Ver detalles
+                          </Link>
+                        </div>
                         <button
                           onClick={() => toggleFavorite(place)}
                           title={isFav ? "Quitar de favoritos" : "Agregar a favoritos"}

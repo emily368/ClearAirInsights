@@ -11,11 +11,16 @@ function LoginPages() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    if (email && password) {
-      localStorage.setItem('email', email);
-      navigate('/test');
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.email === email);
+
+    if (!user) {
+      alert('Este usuario no está registrado');
+    } else if (user.password !== password) {
+      alert('Contraseña incorrecta');
     } else {
-      alert('Por favor ingresa email y contraseña');
+      localStorage.setItem('email', email); // Guardar sesión
+      navigate('/test'); // Redirigir al panel principal
     }
   };
 
@@ -25,7 +30,7 @@ function LoginPages() {
   return (
     <div className="min-h-screen w-screen flex items-center justify-center bg-[#bce3f8] overflow-auto">
       <div className="flex flex-col lg:flex-row w-full max-w-6xl min-h-[90vh] lg:min-h-[90vh] bg-white shadow-lg rounded-none lg:rounded-2xl overflow-auto">
-        
+
         {/* Imagen avatar - solo en pantallas grandes */}
         <div className="hidden lg:flex w-full lg:w-1/2 bg-[#bce3f8] items-center justify-center p-8">
           <img 
@@ -74,7 +79,6 @@ function LoginPages() {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-[50%] transform -translate-y-1/2 text-gray-600"
-                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
               >
                 {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </button>
@@ -101,4 +105,3 @@ function LoginPages() {
 }
 
 export default LoginPages;
-

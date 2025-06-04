@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import avatar from '../assets/avatar.png';
 import './Map.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   GoogleMap,
   Marker,
@@ -20,6 +20,8 @@ function Map() {
     libraries: ['places']
   });
 
+  const navigate = useNavigate();
+
   const fetchPlaceName = async (lat, lng) => {
     try {
       const response = await fetch(
@@ -36,15 +38,7 @@ function Map() {
     }
   };
 
-  useEffect(() => {
-    if (location) {
-      fetchPlaceName(location.lat, location.lng).then(name => {
-        setPlaceName(name);
-        savePlaceToHistory(location.lat, location.lng, name);
-      });
-    }
-  }, [location]);
-
+  // Guardar lugar en localStorage
   const savePlaceToHistory = (lat, lng, name) => {
     const stored = JSON.parse(localStorage.getItem("recentPlaces")) || [];
     const existsIndex = stored.findIndex(
@@ -55,28 +49,32 @@ function Map() {
       latitude: lat,
       longitude: lng,
       name,
-      isFavorite: false,
       timestamp: Date.now()
     };
 
     let updated;
     if (existsIndex !== -1) {
-      stored.splice(existsIndex, 1);
+      stored.splice(existsIndex, 1); // elimina el viejo
       updated = [newPlace, ...stored];
     } else {
       updated = [newPlace, ...stored];
     }
 
-    updated = updated.slice(0, 10);
+    updated = updated.slice(0, 10); // guardar máximo 10
     localStorage.setItem("recentPlaces", JSON.stringify(updated));
   };
 
-  // Guardar referencia del mapa al cargarlo
+  const setLocationAndName = async (lat, lng) => {
+    const name = await fetchPlaceName(lat, lng);
+    setPlaceName(name);
+    setLocation({ lat, lng });
+    savePlaceToHistory(lat, lng, name);
+  };
+
   const onLoad = (map) => {
     mapRef.current = map;
   };
 
-  // Cuando cambia la ubicación, panTo la nueva posición y zoom a 12
   useEffect(() => {
     if (location && mapRef.current) {
       mapRef.current.panTo(location);
@@ -88,10 +86,7 @@ function Map() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
+          setLocationAndName(position.coords.latitude, position.coords.longitude);
         },
         (error) => {
           alert("No se pudo obtener la ubicación.");
@@ -124,7 +119,7 @@ function Map() {
     const newLat = y + y0;
     const newLng = x + x0;
 
-    setLocation({ lat: newLat, lng: newLng });
+    setLocationAndName(newLat, newLng);
   };
 
   const containerStyle = {
@@ -140,14 +135,12 @@ function Map() {
 
   return (
     <div className="bg-[#bce3f8] min-h-screen w-screen flex flex-col">
-      {/* Barra superior */}
+      {/* Barra superior sin botón */}
       <div className="w-full bg-[#4a8a45] p-4 flex justify-between items-center rounded-b-xl shadow-lg">
         <div className="flex items-center">
           <img src={avatar} alt="avatar" className="w-10 h-10 rounded-full mr-4" />
         </div>
-        <Link to="/" className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600">
-          Volver al inicio
-        </Link>
+        {/* Aquí no hay botón "Volver al inicio" */}
       </div>
 
       {/* Contenido principal */}
@@ -161,10 +154,7 @@ function Map() {
               center={location || centerDefault}
               zoom={location ? 12 : 5}
               onClick={(e) => {
-                setLocation({
-                  lat: e.latLng.lat(),
-                  lng: e.latLng.lng(),
-                });
+                setLocationAndName(e.latLng.lat(), e.latLng.lng());
               }}
             >
               {location && <Marker position={location} />}
@@ -175,7 +165,7 @@ function Map() {
         </div>
 
         {/* Panel de acciones */}
-        <div className="w-full md:w-1/3 bg-[#e8e4e4] rounded-xl shadow-lg p-4">
+        <div className="w-full md:w-1/3 bg-[#e8e4e4] rounded-xl shadow-lg p-4 flex flex-col">
           <h1 className="text-xl font-semibold text-gray-800 mb-4">Ubicación:</h1>
 
           <div className="flex flex-col gap-2 mb-4">
@@ -209,6 +199,14 @@ function Map() {
           ) : (
             <div className="text-gray-400">Ubicación no seleccionada</div>
           )}
+
+          {/* Botón Volver al inicio */}
+          <button
+            onClick={() => navigate('/main')}
+            className="mt-auto bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-gray-800 mt-6"
+          >
+            Volver al inicio
+          </button>
         </div>
       </div>
     </div>
