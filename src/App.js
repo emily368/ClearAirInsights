@@ -43,8 +43,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPages />} /> 
-        <Route path="/main" element={<MainScreen />} /> {/* RUTA para MainScreen */}
-        <Route path="/register" element={<RegisterPages />} /> {/* RUTA para Register */}
+        <Route path="/main" element={<MainScreen />} /> 
+        <Route path="/register" element={<RegisterPages />} /> 
         <Route path="/password" element={<ForgotPassword />} /> 
         <Route path="/map" element={<Map />} /> 
         <Route path="/test" element={<AllergyForm />} />

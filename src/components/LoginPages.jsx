@@ -23,15 +23,15 @@ function LoginPages() {
   const handleForgotPassword = () => navigate('/password');
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#bce3f8]">
-      <div className="flex flex-col lg:flex-row w-full max-w-6xl h-full lg:h-[90vh] bg-white shadow-lg rounded-2xl overflow-hidden">
+    <div className="h-screen w-screen flex items-center justify-center bg-[#bce3f8]">
+      <div className="flex flex-col lg:flex-row w-full max-w-6xl h-screen lg:h-[90vh] bg-white shadow-lg rounded-none lg:rounded-2xl overflow-hidden">
         
         {/* Imagen avatar - solo en pantallas grandes */}
         <div className="hidden lg:flex w-full lg:w-1/2 bg-[#bce3f8] items-center justify-center p-8">
           <img 
             src={avatar} 
             alt="Avatar" 
-            className="w-[400px] h-auto object-contain" 
+            className="w-3/4 max-w-sm h-auto object-contain" 
           />
         </div>
 

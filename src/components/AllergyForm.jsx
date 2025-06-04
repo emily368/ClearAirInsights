@@ -14,8 +14,8 @@ function AllergyForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSurveyCompleted(true);
-    setTimeout(() => navigate('/main'), 1500);
+    setSurveyCompleted(true); // Muestra mensaje
+    setTimeout(() => navigate('/main'), 1500); // Redirige luego de 1.5s
   };
 
   return (
@@ -27,7 +27,7 @@ function AllergyForm() {
         className="absolute bottom-0 w-full max-w-[850px] drop-shadow-2xl"
       />
 
-      {/* Formulario centrado */}
+      {/* Formulario o mensaje */}
       <div
         className="absolute z-10 text-white text-center chalk-text px-4 py-6 bg-black/40 rounded-lg backdrop-blur-sm w-[90%] max-w-xs sm:max-w-sm md:max-w-md"
         style={{

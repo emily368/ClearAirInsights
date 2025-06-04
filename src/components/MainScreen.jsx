@@ -18,7 +18,7 @@ function MainScreen() {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('userData'));
     if (!userData) {
-      navigate('/');
+      navigate('/main');
       return;
     }
     setUserName(userData.name || 'Usuario');

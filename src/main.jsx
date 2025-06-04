@@ -24,9 +24,7 @@ const router = createBrowserRouter([
   {path: "/map",element:<Map/>},
   {path: "/test",element:<AllergyForm/>},
   {path: "/details",element:<Details/>},
-
   {path: "/file",element:<File/>},
-
   {path: "*",element:<NotFoundPage/>},
 ]);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import avatar from '../assets/avatar.png';
 import './Map.css';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ import {
 function Map() {
   const [location, setLocation] = useState(null);
   const [placeName, setPlaceName] = useState("");
+  const mapRef = useRef(null);
 
   const apiKey = 'AIzaSyAlFxQE_hnmM5xhCj8nJTTuKsQgxvdD2Ic';
 
@@ -47,7 +48,7 @@ function Map() {
   const savePlaceToHistory = (lat, lng, name) => {
     const stored = JSON.parse(localStorage.getItem("recentPlaces")) || [];
     const existsIndex = stored.findIndex(
-      (p) => p.latitude === lat && p.longitude === lng
+      (p) => Math.abs(p.latitude - lat) < 0.0001 && Math.abs(p.longitude - lng) < 0.0001
     );
 
     const newPlace = {
@@ -69,6 +70,19 @@ function Map() {
     updated = updated.slice(0, 10);
     localStorage.setItem("recentPlaces", JSON.stringify(updated));
   };
+
+  // Guardar referencia del mapa al cargarlo
+  const onLoad = (map) => {
+    mapRef.current = map;
+  };
+
+  // Cuando cambia la ubicación, panTo la nueva posición y zoom a 12
+  useEffect(() => {
+    if (location && mapRef.current) {
+      mapRef.current.panTo(location);
+      mapRef.current.setZoom(12);
+    }
+  }, [location]);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -142,6 +156,7 @@ function Map() {
         <div className="w-full md:w-2/3">
           {isLoaded ? (
             <GoogleMap
+              onLoad={onLoad}
               mapContainerStyle={containerStyle}
               center={location || centerDefault}
               zoom={location ? 12 : 5}
