@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import './RegisterPages.css';
 import { useNavigate, Link } from 'react-router-dom';
@@ -137,7 +136,7 @@ function RegisterPages() {
       </div>
     </div>
   );
-=======
+  }
 import React from 'react'  
 import './RegisterPages.css';
 import { useNavigate, Link } from 'react-router-dom';  
@@ -273,7 +272,6 @@ function RegisterPages() {
       </div>
     </div>
   )
->>>>>>> 5dfc72143972e5a41d2bcdcc99e79db7995d15d6
 }
 
 export default RegisterPages;

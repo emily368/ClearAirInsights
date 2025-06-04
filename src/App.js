@@ -1,18 +1,14 @@
-<<<<<<< HEAD
 import { Routes, Route } from 'react-router-dom';
 import LoginPages from './components/LoginPages';
 import MainScreen from './components/MainScreen';
-=======
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPages from './components/LoginPages';
 import MainScreen from './components/MainScreen'; // IMPORTANTE
->>>>>>> 5dfc72143972e5a41d2bcdcc99e79db7995d15d6
 import RegisterPages from './components/RegisterPages';
 import ForgotPassword from './components/ForgotPassword';
 import Map from './components/Map';
 import AllergyForm from './components/AllergyForm';
 import Details from './components/Details';
-<<<<<<< HEAD
 import File from './components/File';
 import Favoritos from './components/Favoritos';
 import Account from './components/Account';
@@ -41,7 +37,6 @@ function App() {
 }
 
 export default App;
-=======
 
 function App() {
   return (
@@ -60,4 +55,4 @@ function App() {
 }
 
 export default App;
->>>>>>> 5dfc72143972e5a41d2bcdcc99e79db7995d15d6
+

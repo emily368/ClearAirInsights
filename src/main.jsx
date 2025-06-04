@@ -10,10 +10,9 @@ import NotFoundPage from './components/NotFoundPage.jsx';
 import Map from './components/Map.jsx';
 import AllergyForm from './components/AllergyForm.jsx';
 import Details from './components/Details.jsx';
-<<<<<<< HEAD
+
 import File from './components/File.jsx';
-=======
->>>>>>> 5dfc72143972e5a41d2bcdcc99e79db7995d15d6
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -25,10 +24,9 @@ const router = createBrowserRouter([
   {path: "/map",element:<Map/>},
   {path: "/test",element:<AllergyForm/>},
   {path: "/details",element:<Details/>},
-<<<<<<< HEAD
+
   {path: "/file",element:<File/>},
-=======
->>>>>>> 5dfc72143972e5a41d2bcdcc99e79db7995d15d6
+
   {path: "*",element:<NotFoundPage/>},
 ]);
 
