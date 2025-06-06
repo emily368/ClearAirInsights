@@ -1,1 +1,40 @@
 @import "tailwindcss";
+.register-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.error {
+  color: red;
+  font-size: 0.85rem;
+}
+
+.password-strength {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+.password-strength.fuerte {
+  color: green;
+}
+.password-strength.media {
+  color: orange;
+}
+.password-strength.débil {
+  color: red;
+}
